@@ -1,9 +1,5 @@
 import React from 'react';
 
-const divStyle = {
-    color:'white'
-};
-
 class About extends React.Component {
     
     render() {

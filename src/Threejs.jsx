@@ -2,10 +2,6 @@ import React from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Box } from '@react-three/drei';
 
-const divStyle = {
-    color: 'white'
-};
-
 class Threejs extends React.Component {
 
     render() {
