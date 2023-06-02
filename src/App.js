@@ -4,6 +4,7 @@ import { Router, Routes, Route, Link } from "react-router-dom";
 import About from './About';
 import Home from './Home';
 import Contact from './Contact';
+import Threejs from './Threejs'
 
 class App extends React.Component {
   render() {
@@ -20,6 +21,9 @@ class App extends React.Component {
               </li>
               <li>
                 <Link to="/contact">Contact</Link>
+              </li>
+              <li>
+                <Link to="/threejs">Three.js</Link>
               </li>
             </ul>
           </nav>
@@ -41,6 +45,12 @@ class App extends React.Component {
               path="/contact"
               element={(
                 <Contact/>
+              )}
+            />
+            <Route
+              path="/threejs"
+              element={(
+                <Threejs/>
               )}
             />
             ...
