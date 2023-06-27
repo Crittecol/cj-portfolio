@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Then, apply the font to the body or specific elements */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+    color: #333;
+}
+
 .App {
   position: absolute;
   top: 0;
@@ -69,6 +80,46 @@
   color: forestgreen;
   text-decoration: none;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+  aspect-ratio: 1 / 1;
+}
+
+.card-image {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  display: block; /* Removes any space at the bottom of the image */
+}
+
+.card-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.card-heading {
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.card-list {
+  text-align: left;
+  list-style: disc;
+  padding-left: 20px;
+}
+
+
 
 #navigation > li {
   border-bottom: 2px solid transparent;
