@@ -1,0 +1,60 @@
+---
+const CATEGORIES = ['webdev', 'av', 'design', 'gamedev'] as const;
+const LABELS: Record<string, string> = {
+  webdev: 'Web Dev',
+  av: 'AV',
+  design: 'Design',
+  gamedev: 'Games',
+};
+
+interface Props {
+  current?: string;
+}
+
+const { current } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<nav class="category-filter" aria-label="Filter work by category">
+  <a
+    href={`${base}work/`}
+    class:list={['filter-link', { active: !current }]}
+  >All</a>
+  {CATEGORIES.map((cat) => (
+    <a
+      href={`${base}work/${cat}/`}
+      class:list={['filter-link', { active: current === cat }]}
+    >{LABELS[cat]}</a>
+  ))}
+</nav>
+
+<style>
+  .category-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .filter-link {
+    font-size: 0.875rem;
+    padding: 0.3em 0.9em;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--transition), border-color var(--transition), background var(--transition);
+  }
+
+  .filter-link:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .filter-link.active {
+    color: var(--color-bg);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TagList from '../components/TagList.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, description, category, tags, links, thumbnail } = project.data;
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title={title} description={description} image={thumbnail}>
+  <article class="project-page container--narrow">
+    <header class="project-header">
+      <a href={`${base}work/${category}/`} class="back-link">&larr; {category}</a>
+      <h1>{title}</h1>
+      <p class="project-desc">{description}</p>
+      {tags.length > 0 && <TagList tags={tags} />}
+      {links.length > 0 && (
+        <ul class="project-links" role="list">
+          {links.map((link) => (
+            <li><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} &rarr;</a></li>
+          ))}
+        </ul>
+      )}
+    </header>
+
+    {thumbnail && (
+      <img
+        src={`${base}${thumbnail}`}
+        alt={title}
+        class="project-thumb"
+      />
+    )}
+
+    <div class="project-body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .project-page {
+    padding-block: var(--space-xl);
+  }
+
+  .back-link {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: inline-block;
+    margin-bottom: var(--space-md);
+  }
+
+  .project-desc {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    margin: var(--space-md) 0 0;
+    padding: 0;
+  }
+
+  .project-links a {
+    font-size: 0.9rem;
+    border: 1px solid var(--color-border);
+    padding: 0.3em 0.8em;
+    border-radius: var(--radius);
+    transition: border-color var(--transition), color var(--transition);
+  }
+
+  .project-links a:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .project-thumb {
+    width: 100%;
+    border-radius: var(--radius);
+    margin-block: var(--space-lg);
+    border: 1px solid var(--color-border);
+  }
+
+  .project-body {
+    margin-top: var(--space-lg);
+  }
+
+  .project-body :global(h2) { margin-top: var(--space-xl); }
+  .project-body :global(h3) { margin-top: var(--space-lg); }
+</style>

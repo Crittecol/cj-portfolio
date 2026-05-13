@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CategoryFilter from '../../components/CategoryFilter.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects', (p) => !p.data.draft))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<BaseLayout title="Work" description="Portfolio of web development, AV programming, design, and game development projects.">
+  <section class="container page-section">
+    <h1>Work</h1>
+    <CategoryFilter />
+    {projects.length > 0
+      ? (
+        <div class="project-grid">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      )
+      : <p class="empty-state">No projects yet — add Markdown files to <code>src/content/projects/</code>.</p>
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .page-section { padding-block: var(--space-xl); }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .empty-state {
+    color: var(--color-text-muted);
+    padding: var(--space-xl) 0;
+  }
+</style>

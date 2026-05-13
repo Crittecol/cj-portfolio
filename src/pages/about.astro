@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About" description="About CJ — background, skills, and how to get in touch.">
+  <div class="container--narrow page-section">
+
+    <section class="about-section">
+      <h1>About</h1>
+      <p>
+        Add your bio here. Tell people who you are, what you make, and what drives your work.
+      </p>
+      <p>
+        This placeholder text lives at <code>src/pages/about.astro</code>.
+      </p>
+    </section>
+
+    <section class="about-section">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Web Development</h3>
+          <ul>
+            <li>HTML, CSS, JavaScript</li>
+            <li>React, Astro</li>
+            <li>PHP, Python</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>AV Programming</h3>
+          <ul>
+            <li>Add your AV tools here</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Design</h3>
+          <ul>
+            <li>Add your design tools here</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Game Development</h3>
+          <ul>
+            <li>Add your game dev tools here</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section" id="contact">
+      <h2>Contact</h2>
+      <p>
+        Replace this with your actual contact information. You might include:
+      </p>
+      <ul>
+        <li><a href="https://github.com/crittecol">GitHub</a></li>
+        <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
+      </ul>
+      <p>
+        To add a downloadable resume/CV, put a PDF in <code>public/</code> and link to it here:
+        <a href="/cj-portfolio/resume.pdf">Download CV (PDF)</a>.
+      </p>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .page-section { padding-block: var(--space-xl); }
+
+  .about-section {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .about-section:last-child {
+    border-bottom: none;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+
+  .skill-group h3 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .skill-group ul {
+    padding-left: var(--space-md);
+    margin: 0;
+  }
+
+  .skill-group li {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xs);
+  }
+</style>
