@@ -1,0 +1,38 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">&copy; {year} CJ &mdash; <a href="https://github.com/crittecol/cj-portfolio">Source on GitHub</a></p>
+    <p class="footer-copy">Built with <a href="https://astro.build">Astro</a>. Content licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Code licensed <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0</a>.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-lg);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .footer-copy {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .footer-copy a {
+    color: var(--color-text-muted);
+  }
+
+  .footer-copy a:hover {
+    color: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import BlogPostCard from '../components/BlogPostCard.astro';
+import { getCollection } from 'astro:content';
+
+const featured = (await getCollection('projects', (p) => p.data.featured && !p.data.draft))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const recentPosts = (await getCollection('blog', (p) => !p.data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Home" description="CJ — web developer, AV programmer, designer, game developer.">
+
+  <section class="hero container">
+    <div class="hero-inner">
+      <h1 class="hero-title">CJ</h1>
+      <p class="hero-subtitle">Web developer &middot; AV programmer &middot; Designer &middot; Game developer</p>
+      <p class="hero-body">
+        I build things for screens, speakers, and spaces. This site is a collection of projects,
+        experiments, and occasional writing.
+      </p>
+      <div class="hero-links">
+        <a href={`${base}work/`} class="btn">View Work</a>
+        <a href={`${base}about/`} class="btn btn--ghost">About</a>
+      </div>
+    </div>
+  </section>
+
+  {featured.length > 0 && (
+    <section class="section container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Work</h2>
+        <a href={`${base}work/`} class="section-link">All projects &rarr;</a>
+      </div>
+      <div class="project-grid">
+        {featured.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </section>
+  )}
+
+  {recentPosts.length > 0 && (
+    <section class="section container--narrow">
+      <div class="section-header">
+        <h2 class="section-title">Recent Writing</h2>
+        <a href={`${base}blog/`} class="section-link">All posts &rarr;</a>
+      </div>
+      {recentPosts.map((post) => <BlogPostCard post={post} />)}
+    </section>
+  )}
+
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-xl);
+    padding-top: calc(var(--space-xl) * 1.5);
+  }
+
+  .hero-inner {
+    max-width: 44ch;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+    letter-spacing: 0.02em;
+  }
+
+  .hero-body {
+    font-size: 1.05rem;
+    color: var(--color-text);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-links {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.55em 1.4em;
+    border-radius: var(--radius);
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: opacity var(--transition);
+  }
+
+  .btn:hover { opacity: 0.85; text-decoration: none; }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn--ghost:hover { color: var(--color-text); border-color: var(--color-text-muted); }
+
+  .section {
+    padding-block: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: var(--space-lg);
+    gap: var(--space-md);
+  }
+
+  .section-title { margin: 0; }
+
+  .section-link {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+</style>

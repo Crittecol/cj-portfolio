@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CategoryFilter from '../../components/CategoryFilter.astro';
+import { getCollection } from 'astro:content';
+
+const LABELS: Record<string, string> = {
+  webdev: 'Web Dev',
+  av: 'AV',
+  design: 'Design',
+  gamedev: 'Games',
+};
+
+export async function getStaticPaths() {
+  const categories = ['webdev', 'av', 'design', 'gamedev'];
+  return categories.map((category) => ({ params: { category } }));
+}
+
+const { category } = Astro.params;
+const projects = (await getCollection('projects', (p) => !p.data.draft && p.data.category === category))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+---
+
+<BaseLayout
+  title={`Work — ${LABELS[category]}`}
+  description={`${LABELS[category]} projects and work.`}
+>
+  <section class="container page-section">
+    <h1>{LABELS[category]}</h1>
+    <CategoryFilter current={category} />
+    {projects.length > 0
+      ? (
+        <div class="project-grid">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      )
+      : <p class="empty-state">No {LABELS[category]} projects yet.</p>
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .page-section { padding-block: var(--space-xl); }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .empty-state {
+    color: var(--color-text-muted);
+    padding: var(--space-xl) 0;
+  }
+</style>
