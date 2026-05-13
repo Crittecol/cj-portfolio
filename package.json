@@ -9,7 +9,7 @@
     "sync": "astro sync"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.5",
+    "@astrojs/mdx": "^4.3.14",
     "astro": "^5.7.0"
   }
 }
