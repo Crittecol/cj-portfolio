@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   site: 'https://crittecol.github.io',
-  base: '/cj-portfolio',
+  base: '/cj-portfolio/',
   output: 'static',
   markdown: {
     shikiConfig: {
