@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from './BaseLayout.astro';
 import TagList from '../components/TagList.astro';
 import type { CollectionEntry } from 'astro:content';
@@ -12,7 +13,7 @@ const { title, description, category, tags, links, thumbnail } = project.data;
 const base = import.meta.env.BASE_URL;
 ---
 
-<BaseLayout title={title} description={description} image={thumbnail}>
+<BaseLayout title={title} description={description} image={thumbnail?.src}>
   <article class="project-page container--narrow">
     <header class="project-header">
       <a href={`${base}work/${category}/`} class="back-link">&larr; {category}</a>
@@ -29,8 +30,8 @@ const base = import.meta.env.BASE_URL;
     </header>
 
     {thumbnail && (
-      <img
-        src={`${base}${thumbnail}`}
+      <Image
+        src={thumbnail}
         alt={title}
         class="project-thumb"
       />

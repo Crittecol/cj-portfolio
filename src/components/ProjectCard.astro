@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import TagList from './TagList.astro';
 import type { CollectionEntry } from 'astro:content';
 
@@ -15,7 +16,7 @@ const href = `${base}work/${project.slug}/`;
 <article class="project-card">
   <a href={href} class="card-link" tabindex="-1" aria-hidden="true">
     {thumbnail
-      ? <img src={`${base}${thumbnail}`} alt="" class="card-thumb" loading="lazy" />
+      ? <Image src={thumbnail} alt="" class="card-thumb" loading="lazy" />
       : <div class="card-thumb card-thumb--placeholder" aria-hidden="true"></div>
     }
   </a>

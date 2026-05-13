@@ -4,11 +4,11 @@ const CATEGORIES = ['webdev', 'av', 'design', 'gamedev'] as const;
 
 const projects = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     category: z.enum(CATEGORIES),
     description: z.string(),
-    thumbnail: z.string().optional(),
+    thumbnail: image().optional(),
     links: z
       .array(z.object({ label: z.string(), url: z.string().url() }))
       .default([]),
@@ -22,12 +22,12 @@ const projects = defineCollection({
 
 const blog = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    heroImage: z.string().optional(),
+    heroImage: image().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),
